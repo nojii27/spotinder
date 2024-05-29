@@ -4,50 +4,49 @@ Spotinder is a mobile app that allows users to find each other by their musical 
 
 ![image](https://user-images.githubusercontent.com/99261514/212739622-595c775f-c092-42aa-b6c1-d640a0be650e.png)
 
-# Déroulement général
+# General
 
-Spotinder est un genre de Tinder mais qui utilise les données de spotify de l&rsquo;utilisateur loggé pour trouver d&rsquo;éventuels match mais sans montrer les photos du profile.  
-Lorsque 2 utilisateurs matchent (seulement sur base des préférences musicales et de la description du profile) il peuvent alors chatter.  
-Les utilsateurs ayant matché, ils peuvent alors décider de s'échanger les photos (non floutées)  
+Spotinder is a kind of Tinder but it uses the spotify data of the logged-in user to find potential matches but without showing the profile photos.
+When 2 users match (based only on musical preferences and profile description) they can then chat.
+Once the users have matched, they can decide to exchange photos (unblurred).
 
-## Fonctionnalités
+## Features
 
 ### :construction_worker: `Login`
 
-1.  Lors du premier Login, l'utilisateur est renvoyé vers la page de spotify pour s'y authentifier
-2.  Une fois l'authentification Spotify terminée, il sera redirigé vers la page d'édition de profil, ainsi il pourra créer et adapter son profil
+1.  When the user logs in for the first time, they are sent to the spotify page to authenticate themselves.
+2.  Once Spotify authentication is complete, they will be redirected to the profile editing page, where they can create and adapt their profile.
 
 ![image](https://user-images.githubusercontent.com/99261514/212743666-327ecd01-28f6-492a-a533-b25b243e7b66.png)
 
-### :telescope: `Recherche de personnes`
+### :telescope: `Match search`
 
-1.  A l'image de Tinder, des profils sont affichés sauf qu'ici on a un coefficient de "Match". C'est à dire, à quel point les données issues de leurs comptes Spotify respectifs correspondent. 
-2.  On peut soit swiper à droite ou à gauche, soit appuyer sur les boutons en dessous 
-3.  Si on swipe à droite et qu&rsquo;il y a match, il apparaît dans les matchs
-4.  Les photos de profils floutées sont affichées, si l'utilisateur n'a pas uploadé de photos, alors une photo par défaut de Itachi sera utilisée.
+1.  Like Tinder, profiles are displayed, except that here we have a ‘Match’ coefficient. In other words, how closely the data from their respective Spotify accounts matches. 
+2.  You can either swipe left or right, or press the buttons underneath. 
+3.  If you swipe right and there is a match, it appears in the matches.
+4.  Blurred profile photos are displayed, if the user has not uploaded any photos then a default photo of Itachi will be used.
 
 ![image](https://user-images.githubusercontent.com/99261514/212743996-298689a0-91a2-4af1-ab16-cd71f995c9d8.png)
 
 ### :raised_hands: `Matches`
 
-1.  Sur la page de messagerie, l'utilisateur peut voir tous ses Matchs et correspondre avec ceux-ci.
-2.  Il peut décider de lui envoyer une requête d'échange de photos, c'est à dire d'accepter que la personne en face puisse voir ses photos non floutées.
-3.  Technologie utilisée : WebSockets
+1.  On the messaging page, users can see all their Matches and correspond with them.
+2.  They can decide to send a photo exchange request, i.e. to accept that the other person can see their unblurred photos.
+3.  Technology used: WebSockets
 
 ![image](https://user-images.githubusercontent.com/99261514/212744828-054da2e4-d727-43a1-9243-57d4a9736a8f.png)
 
-Pages de matches 
+Matches page 
 
 ![image](https://user-images.githubusercontent.com/99261514/212744919-b75b7679-58a9-4f3e-b322-4d79b6ba0a2a.png)
 
-Page de messagerie 
+Messenger
 
 ![image](https://user-images.githubusercontent.com/99261514/212745036-a0136b0a-ab66-495f-bb9f-e82c9dae6753.png)
 
-Page de profil du match (Avec requete d'échange).
+Match profile page (with exchange request).
 
-
-# Quelques Gifs pour mieux illustrer...
+# Some GIFs to illustrate...
 
 
 ## `Login`
@@ -60,15 +59,15 @@ Page de profil du match (Avec requete d'échange).
 ## `Matchs`
 ![](https://github.com/tecg-dam-2022-2023/examen_dam-colinet-nathan-oumarov-nokhtcho/blob/main/gifs/chat.gif)
 
-## Requete d'échange
+## Exchange request
 
 ![](https://github.com/tecg-dam-2022-2023/examen_dam-colinet-nathan-oumarov-nokhtcho/blob/main/gifs/sharePics.gif)
 
-# Description du serveur
+# Server description
 
-C&rsquo;est un serveur avec REST API (requête HTTP avec payload en JSON)  
+REST API
 
-Toutes les requetes (sauf login et register) doivent avoir le token d&rsquo;authentification dans le header &ldquo;Authorization&rdquo;.  
+All requests (except login and register) must have the authentication token in the Authorization header
 
 
 ## `/login`
@@ -105,16 +104,15 @@ Toutes les requetes (sauf login et register) doivent avoir le token d&rsquo;auth
 
 ## `/spotify/token`
 
-Nous pensons que le mieux c&rsquo;est que ce soit le serveur qui fasse toutes les requêtes pour spotify. Comme ça tout et centralisé.  
 
 = RedirectURI  
 
 
 ## `/profile`
 
-Permet de modifier son profile  
+Update profile
 
--   POST
+-   PATCH
 
         - Request = {
     	    'description': String,
@@ -129,8 +127,7 @@ Permet de modifier son profile
     	    '=error_msg=': NULL/String
     }
 
-Permet d&rsquo;obtenir les infos sur son propre profile  
-
+Get information about yourself
 -   GET
 
         - Response = {
@@ -147,7 +144,7 @@ Permet d&rsquo;obtenir les infos sur son propre profile
 
 ## `/profile/{ID}`
 
-Permet d&rsquo;obtenir les info sur un profile donné  
+Get information about a certain user
 
 -   GET
 
@@ -164,7 +161,7 @@ Permet d&rsquo;obtenir les info sur un profile donné
 
 ## `/profiles`
 
-Permet d&rsquo;obtenir les potentiels match  
+Get potential matches
 
 -   GET
 
@@ -181,7 +178,7 @@ Permet d&rsquo;obtenir les potentiels match
 
 ## `/swipe`
 
-Permet d&rsquo;envoyer le résultat d&rsquo;un swipe  
+Register a swipe
 
 -   POST
 
@@ -200,7 +197,7 @@ Permet d&rsquo;envoyer le résultat d&rsquo;un swipe
 
 ## `/match/{ID}`
 
-Permet d&rsquo;obtenir les infos sur un match  
+Get information about a match
 
 -   GET
 
@@ -215,7 +212,7 @@ Permet d&rsquo;obtenir les infos sur un match
     	    }
     }
 
-Permet de retirer ou d&rsquo;accepter un match  
+Accept or delete a match  
 
 -   POST
 
@@ -233,7 +230,7 @@ Permet de retirer ou d&rsquo;accepter un match
 
 ## `/matchs`
 
-Permet d&rsquo;obtenir la liste des matchs d&rsquo;un utilisateur  
+Get the list of all matches  
 
 -   GET
 
@@ -248,7 +245,7 @@ Permet d&rsquo;obtenir la liste des matchs d&rsquo;un utilisateur
 
 ## `/messages/{matchID}`
 
-Permet d&rsquo;obtenir tous les messages échangés avec un match.  
+Get messages exchanged with a match   
 
 -   GET
 
@@ -271,7 +268,7 @@ Permet d&rsquo;obtenir tous les messages échangés avec un match.
 
 ## `/message/${ID}`
 
-Obtenir les infos sur un message  
+Info about a message  
 
 -   GET
 
@@ -293,7 +290,7 @@ Obtenir les infos sur un message
 
 ## `/message/send`
 
-Envoyer un message à un match  
+Send a message to a match  
 
 -   POST  
     
